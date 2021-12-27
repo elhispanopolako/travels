@@ -1,25 +1,20 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+package pl.seleniumdemo.tests;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pl.seleniumdemo.tests.BaseTest;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class SignUpTest {
+public class SignUpTest extends BaseTest {
+
+
     @Test
-    public void signUp() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void signUp()  {
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed)
                 .findFirst().ifPresent(WebElement::click);
@@ -40,14 +35,10 @@ public class SignUpTest {
         Assert.assertTrue(header.getText().contains(lastname));
         Assert.assertEquals(header.getText(), "Hi, Tadeusz Woźniak");
 
+
     }
     @Test
     public void signUpwithoutform() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.get("http://www.kurs-selenium.pl/demo/");
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed)
                 .findFirst().ifPresent(WebElement::click);
@@ -66,14 +57,10 @@ public class SignUpTest {
         softAssert.assertTrue(errors.contains("The Last Name field is required."));
         softAssert.assertAll();
 
+
     }
     @Test
     public void signWithFailEmail(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.get("http://www.kurs-selenium.pl/demo/");
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream().filter(WebElement::isDisplayed)
                 .findFirst().ifPresent(WebElement::click);

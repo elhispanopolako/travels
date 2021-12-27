@@ -23,5 +23,6 @@ public class Zoovu {
       searchField.sendKeys(Keys.ENTER);
       WebElement result= driver.findElement(By.xpath("//a[@href='https://zoovu.com/']"));
       Assert.assertTrue(result.isDisplayed());
+      driver.quit();
    }
 }
