@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class Zoovu {

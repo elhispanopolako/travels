@@ -44,9 +44,5 @@ public class HotelsSearchTest extends BaseTest {
 
         Assert.assertEquals(resultPage.noHotelGetText(), "No Results Found");
         Assert.assertTrue(resultPage.noHotelResult.isDisplayed());
-
-
-
-
     }
 }
