@@ -10,14 +10,18 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected WebDriver driver;
+
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
         driver.get("http://www.kurs-selenium.pl/demo/");
     }
+
     @AfterMethod
-    public void tearDown() {driver.quit();}
+    public void tearDown() {
+        driver.quit();
+    }
 }

@@ -15,17 +15,18 @@ public class ResultPage {
     @FindBy(xpath = "//h2[text()='No Results Found']")
     public WebElement noHotelResult;
 
-    public ResultPage(WebDriver driver){
-        PageFactory.initElements(driver,this);
+    public ResultPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
     }
 
-    public List<String> getHotelsNames(){
-      return  hotelList.stream()
-              .map(el->el.getAttribute("textContent"))
-              .collect(Collectors.toList());
+    public List<String> getHotelsNames() {
+        return hotelList.stream()
+                .map(el -> el.getAttribute("textContent"))
+                .collect(Collectors.toList());
     }
-    public String noHotelGetText(){
-       return noHotelResult.getText();
+
+    public String noHotelGetText() {
+        return noHotelResult.getText();
 
     }
 }
