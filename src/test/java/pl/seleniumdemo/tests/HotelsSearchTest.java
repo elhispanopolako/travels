@@ -1,15 +1,11 @@
 package pl.seleniumdemo.tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
-import pl.seleniumdemo.tests.BaseTest;
+import pl.seleniumdemo.pages.ResultPage;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HotelsSearchTest extends BaseTest {
     @Test
@@ -17,7 +13,7 @@ public class HotelsSearchTest extends BaseTest {
         HotelSearchPage hotelSearchPage=new HotelSearchPage(driver);
         hotelSearchPage.setCity("Dubai");
         hotelSearchPage.setDates("22/04/2022","26/04/2022");
-        hotelSearchPage.setTravellers();
+        hotelSearchPage.setTravellers(2,2);
         hotelSearchPage.performSearch();
 
       /*  driver.findElements(By.xpath("//td[@class='day ' and text()='30']"))
@@ -26,9 +22,9 @@ public class HotelsSearchTest extends BaseTest {
         Actions actions=new Actions(driver);
         WebElement button=driver.findElement(By.id("childPlusBtn"));
         actions.doubleClick(button).perform();*/
+        ResultPage resultPage=new ResultPage(driver);
 
-        List<String> hotelNames = driver.findElements(By.xpath("//h4[contains(@class,'list_title')]//b"))
-                .stream().map(el->el.getAttribute("textContent")).collect(Collectors.toList());
+       List<String> hotelNames = resultPage.getHotelsNames();
         System.out.println(hotelNames.size());
         hotelNames.forEach(System.out::println);//el-> System.out.println(el)
         Assert.assertEquals("Jumeirah Beach Hotel",hotelNames.get(0));
@@ -39,15 +35,15 @@ public class HotelsSearchTest extends BaseTest {
     }
     @Test
     public void searchZadtest() {
+        HotelSearchPage hotelSearchPage=new HotelSearchPage(driver);
+        hotelSearchPage.setDates("16/04/2022","22/04/2022");
+        hotelSearchPage.setTravellers(0,1);
+        hotelSearchPage.performSearch();
 
-        driver.findElement(By.name("checkin")).sendKeys("16/04/2022");
-        driver.findElement(By.name("checkout")).sendKeys("22/04/2022");
-        driver.findElement(By.id("travellersInput")).click();
-        driver.findElement(By.id("childPlusBtn")).click();
-        driver.findElement(By.xpath("//button[text()=' Search']")).click();
-        WebElement result= driver.findElement(By.xpath("//h2[text()='No Results Found']"));
-        Assert.assertEquals(result.getText(),"No Results Found");
-        Assert.assertTrue(result.isDisplayed());
+       ResultPage resultPage=new ResultPage(driver);
+
+        Assert.assertEquals(resultPage.noHotelGetText(), "No Results Found");
+        Assert.assertTrue(resultPage.noHotelResult.isDisplayed());
 
 
 
